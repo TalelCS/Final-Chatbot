@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  chatbot-front:
+    build:
+      context: ./chatbot-front
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - my-new-network
+
+  chatbot-dashboard:
+    build:
+      context: ./chatbot-dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    networks:
+      - my-new-network
+
+  chatbot-back:
+    build:
+      context: ./chatbot-back
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - my-new-network
+
+networks:
+  my-new-network:
+    external: true
