@@ -178,21 +178,6 @@ function App() {
         };        
   }, []);
 
-  useEffect(() => {
-    const handleBeforeUnload = async (event) => {
-      event.preventDefault();
-      await uploadConversation();
-      event.returnValue = '';
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [conversation]);
-  
-
     const handleSpeech = async (text) => {
         if (playing) {
             audioRef.current.pause();
@@ -255,6 +240,7 @@ function App() {
         setQuestion('');
         setLoading(true);
         WS.send(userQuestion);
+        uploadMessage(userQuestion);
         if (containerRef.current) {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
